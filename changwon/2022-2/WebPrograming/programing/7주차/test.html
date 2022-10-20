@@ -1,20 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">    
-    <title>테스트</title>
+    <meta charset="UTF-8">
+    <title>7주차 실습과제</title>
+    <style>
+        h3, li{ /**/
+            color: brown;
+        }
+        div>div>strong{
+            background-color: yellow;
+        }
+        ul strong{
+            color: dodgerblue;
+        }
+        .warning{
+            color: red;
+        }
+        body.main{
+            background-color: aliceblue;
+        }
+        #list span{
+            color: forestgreen;
+        }
+        h3::first-letter{
+            color: red;
+        }
+        li:hover{
+            background-color: yellowgreen;
+        }
+    </style>
 </head>
-<body>
-    <h2>로그인 폼</h2>
+<body class="main">
+    <h3>Web programming</h3>
     <hr>
-    <form>
-        <fieldset>
-            <legend>Login</legend>
-            <label for="Username">Username</label>
-            <input id="Username" type="text"> &nbsp;
-            <label for="Password">Password</label>
-            <input id="Password" type="password">
-        </fieldset>
-    </form>
+    <div>
+        <div>2학기 <strong>학습 내용</strong>입니다.</div>
+        <ul id="list">
+            <li><span>HTML5</span></li>
+            <li><strong>CSS</strong></li>
+            <li>JAVASCRIPT</li>
+        </ul>
+        <div class="warning">60점 이하는 F</div>
+    </div>
+    
 </body>
 </html>
