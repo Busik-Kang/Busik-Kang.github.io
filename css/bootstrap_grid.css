@@ -4137,7 +4137,7 @@
   }
   #header .nav{
     position: absolute;
-    right: 0;
+    right: 100px;
     bottom: 35px;
     font-weight: 200;
   }
@@ -4153,13 +4153,11 @@
     #header h1{            
       position: absolute;
 			left: 0;
-			bottom: 18px;
+			bottom: 0px;
 			font-size: 3em
     }
     #header h1 a{
       color: #fff;
-      text-decoration: none;
+      text-decoration: none;      
     }
 
-
-/*# sourceMappingURL=bootstrap-grid.css.map */
