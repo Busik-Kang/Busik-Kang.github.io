@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>7주차 실습과제</title>
+    <script>
+        function over(obj)
+        {
+            obj.style.background ="blue";
+            obj.style.color="white";
+        }
+        function out(obj)
+        {
+            obj.style.background="white";
+            obj.style.color="black";
+        }    
+    </script>
+
+</head>
+<body >
+    <h3>마우스를 올려 보세요 (this 인스턴스를 사용하세요)</h3>
+    <hr>
+    <div onmouseover="over(this)" onmouseout="out(this)">
+        여기에 마우스를 올리면 배경색이 파란색으로 변하고 글자색이 하얀색으로 변합니다.
+    </div>
+</body>
+</html>
