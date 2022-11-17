@@ -3995,7 +3995,9 @@ textarea.form-control-lg {
     flex-direction: row;
   }
   .navbar-expand-lg .navbar-nav .dropdown-menu {
+    /* position: absolute; */
     position: absolute;
+    
   }
   .navbar-expand-lg .navbar-nav .nav-link {
     padding-right: var(--bs-navbar-nav-link-padding-x);
@@ -4007,6 +4009,7 @@ textarea.form-control-lg {
   .navbar-expand-lg .navbar-collapse {
     display: flex !important;
     flex-basis: auto;
+    flex-direction: row-reverse;
   }
   .navbar-expand-lg .navbar-toggler {
     display: none;
@@ -10877,3 +10880,42 @@ textarea.form-control-lg {
   }
 }
 
+
+/*직접 작성한 CSS*/
+
+#header{
+  position: relative;
+  background: #323539;
+  box-shadow: inset 0px -1px 0px 0px #51575a;
+  text-shadow: -1px -1px 1px rgb(0 0 0 / 75%);
+
+}
+  #header > .container{
+    position: relative;
+    min-height: 100px;
+  }
+  #header .nav{
+    position: absolute;
+    right: 100px;
+    bottom: 35px;
+    font-weight: 200;
+  }
+
+    #header .nav a{
+      color: #c6c8c8;
+      text-decoration: none;
+      font-size: 1.4em;
+      margin-left: 60px;
+      outline: 0;
+    }
+
+    #header h1{            
+      position: absolute;
+			left: 0;
+			bottom: 0px;
+			font-size: 3em
+    }
+    #header h1 a{
+      color: #fff;
+      text-decoration: none;      
+    }
