@@ -1938,12 +1938,12 @@ input, select, textarea {
 	}
 
 		#logo h1 {
-			background: #ff4486;
+			background: #0090c5;
 			color: #fff;
 			border-radius: 6px;
-			font-family: 'Oleo Script', serif;
+			/* font-family:'TitleFont';		 */
 			font-weight: 400;
-			padding: 0.25em 0.2em 0.25em 0.2em;
+			padding: 0.5em;
 			font-size: 3.25em;
 			letter-spacing: 0.05em;
 			display: inline-block;
@@ -1990,6 +1990,7 @@ input, select, textarea {
 					text-decoration: none;
 					border-radius: 6px;
 					padding: 0.5em 1em 0.5em 1em;
+					font-size: 20px;
 				}
 
 				#nav ul li > ul {

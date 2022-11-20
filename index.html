@@ -2,7 +2,7 @@
 <!--
 	Verti by HTML5 UP
 	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)	
 -->
 <html>
 	<head>
@@ -10,6 +10,26 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		
+		<!--폰트 변경-->
+		<style type="text/css">
+			@font-face {
+				font-family:"mainFont";
+				 src:url("./font/mainFont.woff") format("trueType");
+			}
+			body {
+			font-family:mainFont;
+			}
+	 </style>
+
+	 <!--폰트 변경-->
+	 <style type="text/css">
+		@font-face {
+			font-family:"TitleFont";
+			 src:url("./font/titleFont.woff") format("trueType");
+		}
+ </style>
+
 	</head>
 	<body class="is-preload homepage">
 		<div id="page-wrapper">
@@ -20,16 +40,16 @@
 
 						<!-- Logo -->
 							<div id="logo">
-								<h1><a href="index.html">Verti</a></h1>
-								<span>by HTML5 UP</span>
+								<h1 style="font-family: TitleFont"><a href="index.html">강형의 개발도상국</a></h1>								
 							</div>
 
 						<!-- Nav -->
 							<nav id="nav">
 								<ul>
 									<li class="current"><a href="index.html">Welcome</a></li>
+									<!-- 학업 -->
 									<li>
-										<a href="#">Dropdown</a>
+										<a href="#">학업</a>
 										<ul>
 											<li><a href="#">Lorem ipsum dolor</a></li>
 											<li><a href="#">Magna phasellus</a></li>
@@ -45,9 +65,62 @@
 											<li><a href="#">Veroeros feugiat</a></li>
 										</ul>
 									</li>
-									<li><a href="left-sidebar.html">Left Sidebar</a></li>
-									<li><a href="right-sidebar.html">Right Sidebar</a></li>
-									<li><a href="no-sidebar.html">No Sidebar</a></li>
+									<!-- 직장 -->
+									<li>
+										<a href="#">직장</a>
+										<ul>
+											<li><a href="#">Lorem ipsum dolor</a></li>
+											<li><a href="#">Magna phasellus</a></li>
+											<li>
+												<a href="#">Phasellus consequat</a>
+												<ul>
+													<li><a href="#">Lorem ipsum dolor</a></li>
+													<li><a href="#">Phasellus consequat</a></li>
+													<li><a href="#">Magna phasellus</a></li>
+													<li><a href="#">Etiam dolore nisl</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Veroeros feugiat</a></li>
+										</ul>
+									</li>
+									<!-- 취미 -->
+									<li>
+										<a href="#">취미</a>
+										<ul>
+											<li><a href="#">Lorem ipsum dolor</a></li>
+											<li><a href="#">Magna phasellus</a></li>
+											<li>
+												<a href="#">Phasellus consequat</a>
+												<ul>
+													<li><a href="#">Lorem ipsum dolor</a></li>
+													<li><a href="#">Phasellus consequat</a></li>
+													<li><a href="#">Magna phasellus</a></li>
+													<li><a href="#">Etiam dolore nisl</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Veroeros feugiat</a></li>
+										</ul>
+									</li>
+									<!-- 미래 -->
+									<li>
+										<a href="#">미래</a>
+										<ul>
+											<li><a href="#">Lorem ipsum dolor</a></li>
+											<li><a href="#">Magna phasellus</a></li>
+											<li>
+												<a href="#">Phasellus consequat</a>
+												<ul>
+													<li><a href="#">Lorem ipsum dolor</a></li>
+													<li><a href="#">Phasellus consequat</a></li>
+													<li><a href="#">Magna phasellus</a></li>
+													<li><a href="#">Etiam dolore nisl</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Veroeros feugiat</a></li>
+										</ul>
+									</li>
+
+
 								</ul>
 							</nav>
 
@@ -58,15 +131,21 @@
 				<div id="banner-wrapper">
 					<div id="banner" class="box container">
 						<div class="row">
-							<div class="col-7 col-12-medium">
-								<h2>Hi. This is Verti.</h2>
-								<p>It's a free responsive site template by HTML5 UP</p>
-							</div>
+							<div class="col-1 col-12-medium"></div> <!--왼쪽 공백을 주기 위함-->
 							<div class="col-5 col-12-medium">
+								<h2>안녕하세요.</h2>
+								<p><br>개발새발 개발하는<br> 강형입니다</p>
+							</div>
+							<div class="col-6 col-12-medium">
 								<ul>
+									<li style="text-align: center;"><img src="images/Helipigeon.gif" alt="둘기콥터"></li>
+									<li style="text-align: center; font-size:20px; font-weight:bold; color:tomato">내가 작성한 <span style="font-style: italic;">코드의 동작</span></li>
+								</ul>
+								
+								<!-- <ul>
 									<li><a href="#" class="button large icon solid fa-arrow-circle-right">Ok let's go</a></li>
 									<li><a href="#" class="button alt large icon solid fa-question-circle">More info</a></li>
-								</ul>
+								</ul> -->
 							</div>
 						</div>
 					</div>
