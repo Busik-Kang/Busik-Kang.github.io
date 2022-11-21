@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>방문 시간에 따라 변하는 배경색</title>
+</head>
+<body>
+  <h3>방문 시간에 따라 변하는 배경색</h3>
+  <hr>
+  <script>
+    var current = new Date();
+    while(1)
+    {
+      if(current.getSeconds() % 2) document.body.style.backgroundColor = "violet"
+      else document.body.style.backgroundColor = "lightskyblue"
+
+      document.write("현재시간 :")
+      document.write(current.getHours(), "시");
+      document.write(current.getMinutes(), "분");
+      document.write(current.getSeconds(), "초");
+      //화면 갱신 코드
+      
+    }
+    
+  </script>
+</body>
+</html>
