@@ -10,9 +10,9 @@
   <h3>방문 시간에 따라 변하는 배경색</h3>
   <hr>
   <script>
-    var current = new Date();
-    while(1)
-    {
+    function display()
+    {      
+      var current = new Date();
       if(current.getSeconds() % 2) document.body.style.backgroundColor = "violet"
       else document.body.style.backgroundColor = "lightskyblue"
 
@@ -21,9 +21,8 @@
       document.write(current.getMinutes(), "분");
       document.write(current.getSeconds(), "초");
       //화면 갱신 코드
-      
-    }
-    
-  </script>
+    }          
+    setInterval("display()",1000);    
+  </script>  
 </body>
 </html>
