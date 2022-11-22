@@ -18,7 +18,7 @@ def createFolder(dir):
 def crawling_img(name, maxCount):
     driver = webdriver.Chrome()
     driver.get("https://www.google.co.kr/imghp?hl=ko&tab=wi&authuser=0&ogbl")
-    elem = driver.find_element("name", "q")
+    elem = driver.find_element(By.NAME, "q")
     elem.send_keys(name)
     elem.send_keys(Keys.RETURN)
 
@@ -44,7 +44,7 @@ def crawling_img(name, maxCount):
         print("스크롤 완료")
 
     # 로드된 전체 페이지에서 이미지 요소들을 모두 찾아냄
-    imgs = driver.find_elements(By.CSS_SELECTOR, ".rg_i.Q4LuWd")
+    imgs= driver.find_element s(By.CSS_SELECTOR, ".rg_i.Q4LuWd")
     print(f'images count : {len(imgs)}')
 
     # 이미지를 저장할 폴더를 생성
