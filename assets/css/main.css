@@ -2703,7 +2703,7 @@ input, select, textarea {
 		width: fit-content;
 		z-index: 100;
 		float: left;
-		margin-left: 18%;
+		margin-left: 20%;
 	}
 
 	.task-tooltip2 {
@@ -2932,7 +2932,6 @@ input, select, textarea {
 }
 
 .kbs_container {
-
   overflow: hidden;
   position: absolute;
 }
@@ -2941,3 +2940,55 @@ input, select, textarea {
   float: left;
 	padding: 10px;
 }
+
+
+/* Nav */
+
+#nav3 {
+	position: absolute;
+	right: 0;
+	top: 0;
+	font-size: 0.9em;
+}
+
+	#nav3 ul {
+		list-style: none;
+		padding-left: 0;
+	}
+
+		#nav3 ul li {
+			float: left;
+			line-height: 4.5em;
+			padding-left: 1.5em;
+		}
+
+			#nav3 ul li a, #nav3 ul li span {
+				-moz-transition: background-color .25s ease-in-out;
+				-webkit-transition: background-color .25s ease-in-out;
+				-ms-transition: background-color .25s ease-in-out;
+				transition: background-color .25s ease-in-out;
+				font-weight: 800;
+				letter-spacing: 0.025em;
+				color: #696969;
+				text-decoration: none;
+				border-radius: 6px;
+				padding: 0.5em 1em 0.5em 1em;
+				font-size: 20px;
+			}
+
+			#nav3 ul li > ul {
+				display: none;
+			}
+
+			#nav3 ul li:hover a, #nav3 ul li:hover span {
+				background: #fff;
+			}
+
+			#nav3 ul li.active a, #nav3 ul li.active span {
+				background: #fff;
+			}
+
+			#nav3 ul li.current a {
+				background: #444;
+				color: #fff;
+			}
