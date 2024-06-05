@@ -25,11 +25,11 @@
       margin-right: 10px;
     }
     .material-input {
-      width: 100px;
+      width: 50%;
       text-align: center;
     }
     .material-input2 {
-      width: 100px;
+      width: 50%;
       text-align: center;
     }
     .parent-container {
@@ -44,6 +44,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-top: 30px;
     }
     .flex-container {
       display: flex;
@@ -57,278 +58,56 @@
     .horizontal-container > div {
       margin: 10px 0; 
     }
+    .toggle-button {
+      background-color: #9900ff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 10px;
+    }
+    #tableDiv {
+      display: flex;
+    }
+    table {
+        border-collapse: collapse;
+        margin-right: 10px;
+    }
+    /* 휴대폰 화면 사이즈 css */
+    @media only screen and (max-width: 1215px) {
+      .parent-container {
+        flex-direction: column;
+        width: 100%;
+      }
+      .left-container, .right-container {
+        width: 100%;
+      }
+      .input-container {
+        width: 100%;
+      }
+      .span-container {
+        width: 80px;
+      }
+      .material-input, .material-input2 {
+        width: 80px;
+        pointer-events: auto;
+      }
+      .horizontal-container > div {
+        margin: 5px 0;
+      }
+      #tableDiv {
+        display: none; /* 평소에는 닫혀있도록 설정 */
+      }
+      .tableDiv table {
+        width: 100%;
+        display: flex;
+        margin-bottom: 20px;
+      }
+    }
+    
   </style>
 </head>
 <body>
-<div style="display: flex;">
-
-  <div>
-    <table id="tableWood" style="margin-right: 10px;">
-      <tr>
-        <td colspan="3" style="text-align: center;">목재</td>
-      </tr>
-      <tr>
-        <td>티어</td>
-        <td>재료</td>
-        <td>가공품</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>거친 통나무</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>자작나무 원목</td>
-        <td>자작나무 판자</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>밤나무 원목</td>
-        <td>밤나무 판자</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>소나무 원목</td>
-        <td>소나무 판자</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>삼나무 원목</td>
-        <td>삼나무 판자</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>블러드오크 원목</td>
-        <td>블러드오크 판자</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>애셴바크 원목</td>
-        <td>애셴바크 판자</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td>화이트우드 원목</td>
-        <td>화이트우드 판자</td>
-      </tr>
-    </table>
-  </div>
-
-  <div>
-    <table id="tableStone" style="margin-right: 10px;">
-      <tr>
-        <td colspan="3" style="text-align: center;">석재</td>
-      </tr>
-      <tr>
-        <td>티어</td>
-        <td>재료</td>
-        <td>가공품</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>잡석</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>석회암</td>
-        <td>석회암 석괴</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>사암</td>
-        <td>사암 석괴</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>트래버틴</td>
-        <td>트래버틴 석괴</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>화강암</td>
-        <td>화강암 석괴</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>점판암</td>
-        <td>점판암 석괴</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>현무암</td>
-        <td>현무암 석괴</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td>대리석</td>
-        <td>대리석 석괴</td>
-      </tr>
-    </table>
-  </div>
-
-  <div>
-    <table id="tableOre" style="margin-right: 10px;">
-      <tr>
-        <td colspan="3" style="text-align: center;">광석</td>
-      </tr>
-      <tr>
-        <td>티어</td>
-        <td>재료</td>
-        <td>가공품</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>구리 광석</td>
-        <td>구리 주괴</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>아연 광석</td>
-        <td>청동 주괴</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>철광석</td>
-        <td>강철 주괴</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>티타늄 광석</td>
-        <td>티타늄 강철주괴</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>루나이트 광석</td>
-        <td>루나이트 강철주괴</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>운석 광석</td>
-        <td>운석 강철주괴</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td>아다만티움 광석</td>
-        <td>아다만티움 강철주괴</td>
-      </tr>
-    </table>
-  </div>
-
-  <div>
-    <table id="tableLeather" style="margin-right: 10px;">
-      <tr>
-        <td colspan="3" style="text-align: center;">가죽</td>
-      </tr>
-      <tr>
-        <td>티어</td>
-        <td>재료</td>
-        <td>가공품</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>가죽 조각</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>질긴 가죽</td>
-        <td>뻣뻣한 피혁</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>얇은 가죽</td>
-        <td>두꺼운 피혁</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>적당한 가죽</td>
-        <td>가공된 피혁</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>헤비 가죽</td>
-        <td>보존 처리된 피혁</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>튼튼한 가죽</td>
-        <td>경화 처리된 피혁</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>두꺼운 가죽</td>
-        <td>보강 처리된 피혁</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td>탄력있는 가죽</td>
-        <td>최고 처리한 피혁</td>
-      </tr>
-    </table>
-  </div>
-
-  <div>
-    <table id="tableTextile">
-      <tr>
-        <td colspan="3" style="text-align: center;">섬유</td>
-      </tr>
-      <tr>
-        <td>티어</td>
-        <td>재료</td>
-        <td>가공품</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>목화</td>
-        <td>단순한 직물</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>아마</td>
-        <td>깔끔한 직물</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>삼</td>
-        <td>괜찮은 직물</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>스카이플라워</td>
-        <td>화려한 직물</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>앰버리프 목화</td>
-        <td>호화로운 직물</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>태양 아마</td>
-        <td>호사스러운 직물</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td>유령 삼</td>
-        <td>바로크 직물</td>
-      </tr>
-    </table>
-  </div>
-</div>
-<br>
-<hr>
 
 <div>
   <div>
@@ -364,7 +143,7 @@
           <div>
             <div class="flex-container">
               <span style="margin-right: 10px;">목표수량 :</span>
-              <input id="goal" type="number" min="1" step="1" oninput="validateGoalInput(this)" style="text-align: right;">
+              <input id="goal" type="number" min="0" step="1" oninput="validateGoalInput(this)" style="text-align: right;">
               <button style="margin-left: 10px;" onclick="calculate()">계산</button>
             </div>
             <span>가지고 있는 수량</span>
@@ -376,37 +155,37 @@
             <div class="input-container">
               <span class="span-container">2티어</span>
               <span id="tier2" class="tier-span"></span>
-              <input id="haveMaterial2" type="number" min="1" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
+              <input id="haveMaterial2" type="number" min="0" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
             </div>
             <div class="input-container">
               <span class="span-container">3티어</span>
               <span id="tier3" class="tier-span"></span>
-              <input id="haveMaterial3" type="number" min="1" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
+              <input id="haveMaterial3" type="number" min="0" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
             </div>
             <div class="input-container">
               <span class="span-container">4티어</span>
               <span id="tier4" class="tier-span"></span>
-              <input id="haveMaterial4" type="number" min="1" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
+              <input id="haveMaterial4" type="number" min="0" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
             </div>
             <div class="input-container">
               <span class="span-container">5티어</span>
               <span id="tier5" class="tier-span"></span>
-              <input id="haveMaterial5" type="number" min="1" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
+              <input id="haveMaterial5" type="number" min="0" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
             </div>
             <div class="input-container">
               <span class="span-container">6티어</span>
               <span id="tier6" class="tier-span"></span>
-              <input id="haveMaterial6" type="number" min="1" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
+              <input id="haveMaterial6" type="number" min="0" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
             </div>
             <div class="input-container">
               <span class="span-container">7티어</span>
               <span id="tier7" class="tier-span"></span>
-              <input id="haveMaterial7" type="number" min="1" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
+              <input id="haveMaterial7" type="number" min="0" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
             </div>
             <div class="input-container">
               <span class="span-container">8티어</span>
               <span id="tier8" class="tier-span"></span>
-              <input id="haveMaterial8" type="number" min="1" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
+              <input id="haveMaterial8" type="number" min="0" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
             </div>
           </div>
       
@@ -471,15 +250,280 @@
 </div>
 <br>
 <hr>
-<br>
+<button class="toggle-button" onclick="toggleTableSet()">재료 확인하기</button>
+<div id="tableDiv">
+
+      <table id="tableWood" style="margin-right: 10px;">
+        <tr>
+          <td colspan="3" style="text-align: center;">목재</td>
+        </tr>
+        <tr>
+          <td>티어</td>
+          <td>재료</td>
+          <td>가공품</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>거친 통나무</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>자작나무 원목</td>
+          <td>자작나무 판자</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>밤나무 원목</td>
+          <td>밤나무 판자</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>소나무 원목</td>
+          <td>소나무 판자</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>삼나무 원목</td>
+          <td>삼나무 판자</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>블러드오크 원목</td>
+          <td>블러드오크 판자</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>애셴바크 원목</td>
+          <td>애셴바크 판자</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>화이트우드 원목</td>
+          <td>화이트우드 판자</td>
+        </tr>
+      </table>
+      <table id="tableStone" style="margin-right: 10px;">
+        <tr>
+          <td colspan="3" style="text-align: center;">석재</td>
+        </tr>
+        <tr>
+          <td>티어</td>
+          <td>재료</td>
+          <td>가공품</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>잡석</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>석회암</td>
+          <td>석회암 석괴</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>사암</td>
+          <td>사암 석괴</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>트래버틴</td>
+          <td>트래버틴 석괴</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>화강암</td>
+          <td>화강암 석괴</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>점판암</td>
+          <td>점판암 석괴</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>현무암</td>
+          <td>현무암 석괴</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>대리석</td>
+          <td>대리석 석괴</td>
+        </tr>
+      </table>
+      <table id="tableOre" style="margin-right: 10px;">
+        <tr>
+          <td colspan="3" style="text-align: center;">광석</td>
+        </tr>
+        <tr>
+          <td>티어</td>
+          <td>재료</td>
+          <td>가공품</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>구리 광석</td>
+          <td>구리 주괴</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>아연 광석</td>
+          <td>청동 주괴</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>철광석</td>
+          <td>강철 주괴</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>티타늄 광석</td>
+          <td>티타늄 강철주괴</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>루나이트 광석</td>
+          <td>루나이트 강철주괴</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>운석 광석</td>
+          <td>운석 강철주괴</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>아다만티움 광석</td>
+          <td>아다만티움 강철주괴</td>
+        </tr>
+      </table>
+      <table id="tableLeather" style="margin-right: 10px;">
+        <tr>
+          <td colspan="3" style="text-align: center;">가죽</td>
+        </tr>
+        <tr>
+          <td>티어</td>
+          <td>재료</td>
+          <td>가공품</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>가죽 조각</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>질긴 가죽</td>
+          <td>뻣뻣한 피혁</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>얇은 가죽</td>
+          <td>두꺼운 피혁</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>적당한 가죽</td>
+          <td>가공된 피혁</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>헤비 가죽</td>
+          <td>보존 처리된 피혁</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>튼튼한 가죽</td>
+          <td>경화 처리된 피혁</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>두꺼운 가죽</td>
+          <td>보강 처리된 피혁</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>탄력있는 가죽</td>
+          <td>최고 처리한 피혁</td>
+        </tr>
+      </table>
+      <table id="tableTextile">
+        <tr>
+          <td colspan="3" style="text-align: center;">섬유</td>
+        </tr>
+        <tr>
+          <td>티어</td>
+          <td>재료</td>
+          <td>가공품</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>목화</td>
+          <td>단순한 직물</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>아마</td>
+          <td>깔끔한 직물</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>삼</td>
+          <td>괜찮은 직물</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>스카이플라워</td>
+          <td>화려한 직물</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>앰버리프 목화</td>
+          <td>호화로운 직물</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>태양 아마</td>
+          <td>호사스러운 직물</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>유령 삼</td>
+          <td>바로크 직물</td>
+        </tr>
+      </table>
+
+</div>
+<hr>
 <span>&#x24B8;&nbsp;Yang</span>
 
 
 <script>
+  // 토글 버튼
+  function toggleTableSet() {
+    var tableSet = document.getElementById("tableDiv");
+    if (tableSet.style.display === "none") {
+      tableSet.style.display = "block";
+    } else {
+      tableSet.style.display = "none";
+    }
+  }
+
   // 목표 수량에는 숫자만 들어가도록
   function validateGoalInput(input) {
-    if (input.value < 1) {
-      input.value = 1;
+    if (input.value < 0) {
+      input.value = 0;
     }
   }
 
@@ -662,8 +706,14 @@
             break;
           case 3:
               needMaterial3.value = goalValue * 2;
-              needMaterial2.value = (goalValue - haveMaterialId2) * 1
-              
+              temp2 = (goalValue - haveMaterialId2) * 1;
+              // 마이너스 값 확인
+              if (temp2 >= 0) {
+                needMaterial2.value = temp2;
+              } else {
+                needMaterial2.value = haveMaterialId2 + '개 중 ' + (haveMaterialId2 - Math.abs(temp2)) + '개만 사용';
+              }
+
               // 나머지 칸 필드 비활성화
               for (var i = 4; i <= 8; i++) {
                 var needMaterial = document.getElementById("needMaterial" + i);
@@ -672,9 +722,9 @@
 
             break;
           case 4:
-              needMaterial4.value = goalValue * 2;
-              needMaterial3.value = (goalValue - haveMaterialId3) * 2;
-              needMaterial2.value = (goalValue - haveMaterialId3 - haveMaterialId2) * 1;
+            needMaterial4.value = goalValue * 2;
+            needMaterial3.value = (goalValue - haveMaterialId3) * 2;
+            needMaterial2.value = (goalValue - haveMaterialId3 - haveMaterialId2) * 1;            
 
               // 나머지 칸 필드 비활성화
               for (var i = 5; i <= 8; i++) {
