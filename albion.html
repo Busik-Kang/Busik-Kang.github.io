@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>알비온 계산기</title>
   <style>
     table {
       border-collapse: collapse;
@@ -15,21 +15,21 @@
     } 
     .input-container {
       display: flex;
-      width: 350px;
+      width: 500px;
     }
     .span-container {
       width: 100px;
     }
     .tier-span {
-      width: 250px;
+      width: 350px;
       margin-right: 10px;
     }
     .material-input {
-      width: 50%;
+      width: 150px;
       text-align: center;
     }
     .material-input2 {
-      width: 50%;
+      width: 150px;
       text-align: center;
     }
     .parent-container {
@@ -68,10 +68,15 @@
     }
     #tableDiv {
       display: flex;
+      flex-wrap: nowrap;
+      justify-content: start;
     }
     table {
         border-collapse: collapse;
         margin-right: 10px;
+    }
+    #tableDiv table {
+      margin-right: 10px;
     }
     /* 휴대폰 화면 사이즈 css */
     @media only screen and (max-width: 1215px) {
@@ -89,7 +94,7 @@
         width: 80px;
       }
       .material-input, .material-input2 {
-        width: 80px;
+        width: 150px;
         pointer-events: auto;
       }
       .horizontal-container > div {
@@ -97,15 +102,15 @@
       }
       #tableDiv {
         display: none; /* 평소에는 닫혀있도록 설정 */
+        flex-direction: column;
       }
-      .tableDiv table {
-        width: 100%;
-        display: flex;
-        margin-bottom: 20px;
+      .usage-needs-container {
+        flex-direction: column; /* 두 div를 세로로 배치 */
       }
     }
     
   </style>
+  <%-include('menu.ejs')%>
 </head>
 <body>
 
@@ -114,7 +119,7 @@
     <div style="display: flex; margin-top: 20px;">
       <span style="margin-right: 10px;">종류 : </span>
       <div>
-        <select id="selectMaterial" style="text-align: center;" onchange="updateTierLabels(); calculateTierLabels();">
+        <select id="selectMaterial" style="text-align: center;" onchange="updateTierLabels(); calculateTierLabels(); calculateTierLabels2(); showName();" >
           <option value="Wood">목재</option> 
           <option value="Stone">석재</option>
           <option value="Ore">광석</option>
@@ -139,13 +144,13 @@
           <span id="nameProduct" style="margin-left: 20px;"></span>
       </div>
       <div class="parent-container">
-        <div class="left-container">
           <div>
             <div class="flex-container">
               <span style="margin-right: 10px;">목표수량 :</span>
               <input id="goal" type="number" min="0" step="1" oninput="validateGoalInput(this)" style="text-align: right;">
               <button style="margin-left: 10px;" onclick="calculate()">계산</button>
             </div>
+            <br>
             <span>가지고 있는 수량</span>
             <div class="input-container">
               <span class="span-container">1티어</span>
@@ -188,72 +193,124 @@
               <input id="haveMaterial8" type="number" min="0" step="1" oninput="validateGoalInput(this)" class="material-input" style="text-align: right;">
             </div>
           </div>
-      
-          <div style="margin-top: 30px;">
-            <span>필요한 재료</span>
-            <div class="input-container">
-              <span class="span-container">1티어</span>
-              <span id="ttier1" class="tier-span"></span>
-              <input id="needMaterial1" type="text" class="material-input2">
-            </div>
-            <div class="input-container">
-              <span class="span-container">2티어</span>
-              <span id="ttier2" class="tier-span"></span>
-              <input id="needMaterial2" type="text" class="material-input2">
-            </div>
-            <div class="input-container">
-              <span class="span-container">3티어</span>
-              <span id="ttier3" class="tier-span"></span>
-              <input id="needMaterial3" type="text" class="material-input2">
-            </div>
-            <div class="input-container">
-              <span class="span-container">4티어</span>
-              <span id="ttier4" class="tier-span"></span>
-              <input id="needMaterial4" type="text" class="material-input2">
-            </div>
-            <div class="input-container">
-              <span class="span-container">5티어</span>
-              <span id="ttier5" class="tier-span"></span>
-              <input id="needMaterial5" type="text" class="material-input2">
-            </div>
-            <div class="input-container">
-              <span class="span-container">6티어</span>
-              <span id="ttier6" class="tier-span"></span>
-              <input id="needMaterial6" type="text" class="material-input2">
-            </div>
-            <div class="input-container">
-              <span class="span-container">7티어</span>
-              <span id="ttier7" class="tier-span"></span>
-              <input id="needMaterial7" type="text" class="material-input2">
-            </div>
-            <div class="input-container">
-              <span class="span-container">8티어</span>
-              <span id="ttier8" class="tier-span"></span>
-              <input id="needMaterial8" type="text" class="material-input2">
-            </div>  
-          </div>
-        </div>
+
+
+
       
         <div class="right-container">
           <div class="horizontal-container">
-            <div>2티어 가공품 : 2티어 원재료 1개</div>
-            <div>3티어 가공품 : 3티어 원재료 2개, 2티어 가공품 1개</div>
-            <div>4티어 가공품 : 4티어 원재료 2개, 3티어 가공품 1개</div>
-            <div>5티어 가공품 : 5티어 원재료 3개, 4티어 가공품 1개</div>
-            <div>6티어 가공품 : 6티어 원재료 4개, 5티어 가공품 1개</div>
-            <div>7티어 가공품 : 7티어 원재료 5개, 6티어 가공품 1개</div>
-            <div>8티어 가공품 : 8티어 원재료 5개, 7티어 가공품 1개</div>
+
+          </div>
           </div>
         </div>
       </div>
+      <div class="usage-needs-container" style="display: flex;">
+        <div style="margin-top: 30px;">
+          <span>가지고 있는 수량에서 사용</span>
+          <div class="input-container">
+            <span class="span-container">1티어</span>
+            <span id="tttier1" class="tier-span"></span>
+            <input id="useMaterial1" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">2티어</span>
+            <span id="tttier2" class="tier-span"></span>
+            <input id="useMaterial2" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">3티어</span>
+            <span id="tttier3" class="tier-span"></span>
+            <input id="useMaterial3" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">4티어</span>
+            <span id="tttier4" class="tier-span"></span>
+            <input id="useMaterial4" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">5티어</span>
+            <span id="tttier5" class="tier-span"></span>
+            <input id="useMaterial5" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">6티어</span>
+            <span id="tttier6" class="tier-span"></span>
+            <input id="useMaterial6" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">7티어</span>
+            <span id="tttier7" class="tier-span"></span>
+            <input id="useMaterial7" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">8티어</span>
+            <span id="tttier8" class="tier-span"></span>
+            <input id="useMaterial8" type="text" class="material-input2">
+          </div>  
+        </div>
+        <div style="margin-right: 50px;"></div>
+        <div style="margin-top: 30px;">
+          <span>추가로 필요한 원재료</span>
+          <div class="input-container">
+            <span class="span-container">1티어</span>
+            <span id="ttier1" class="tier-span"></span>
+            <input id="needMaterial1" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">2티어</span>
+            <span id="ttier2" class="tier-span"></span>
+            <input id="needMaterial2" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">3티어</span>
+            <span id="ttier3" class="tier-span"></span>
+            <input id="needMaterial3" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">4티어</span>
+            <span id="ttier4" class="tier-span"></span>
+            <input id="needMaterial4" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">5티어</span>
+            <span id="ttier5" class="tier-span"></span>
+            <input id="needMaterial5" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">6티어</span>
+            <span id="ttier6" class="tier-span"></span>
+            <input id="needMaterial6" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">7티어</span>
+            <span id="ttier7" class="tier-span"></span>
+            <input id="needMaterial7" type="text" class="material-input2">
+          </div>
+          <div class="input-container">
+            <span class="span-container">8티어</span>
+            <span id="ttier8" class="tier-span"></span>
+            <input id="needMaterial8" type="text" class="material-input2">
+          </div>  
+        </div>
+    </div>
+</div>
 
+
+<div style="margin-top: 30px;">
+  <div>- 2티어 가공품 : 2티어 원재료 1개</div>
+  <div>- 3티어 가공품 : 3티어 원재료 2개, 2티어 가공품 1개</div>
+  <div>- 4티어 가공품 : 4티어 원재료 2개, 3티어 가공품 1개</div>
+  <div>- 5티어 가공품 : 5티어 원재료 3개, 4티어 가공품 1개</div>
+  <div>- 6티어 가공품 : 6티어 원재료 4개, 5티어 가공품 1개</div>
+  <div>- 7티어 가공품 : 7티어 원재료 5개, 6티어 가공품 1개</div>
+  <div>- 8티어 가공품 : 8티어 원재료 5개, 7티어 가공품 1개</div>
 </div>
 <br>
 <hr>
 <button class="toggle-button" onclick="toggleTableSet()">재료 확인하기</button>
 <div id="tableDiv">
 
-      <table id="tableWood" style="margin-right: 10px;">
+      <table id="tableWood">
         <tr>
           <td colspan="3" style="text-align: center;">목재</td>
         </tr>
@@ -303,7 +360,7 @@
           <td>화이트우드 판자</td>
         </tr>
       </table>
-      <table id="tableStone" style="margin-right: 10px;">
+      <table id="tableStone">
         <tr>
           <td colspan="3" style="text-align: center;">석재</td>
         </tr>
@@ -353,7 +410,7 @@
           <td>대리석 석괴</td>
         </tr>
       </table>
-      <table id="tableOre" style="margin-right: 10px;">
+      <table id="tableOre">
         <tr>
           <td colspan="3" style="text-align: center;">광석</td>
         </tr>
@@ -403,7 +460,7 @@
           <td>아다만티움 강철주괴</td>
         </tr>
       </table>
-      <table id="tableLeather" style="margin-right: 10px;">
+      <table id="tableLeather">
         <tr>
           <td colspan="3" style="text-align: center;">가죽</td>
         </tr>
@@ -513,10 +570,17 @@
   // 토글 버튼
   function toggleTableSet() {
     var tableSet = document.getElementById("tableDiv");
-    if (tableSet.style.display === "none") {
-      tableSet.style.display = "block";
+    var tables = tableSet.getElementsByTagName("table");
+  
+    // Toggle the visibility of the table set
+    if (tableSet.style.display === "" || tableSet.style.display === "none") {
+      tableSet.style.display = "flex"; // Display the table set
+      // Ensure all tables are visible
+      for (var i = 0; i < tables.length; i++) {
+        tables[i].style.display = "table";
+      }
     } else {
-      tableSet.style.display = "none";
+      tableSet.style.display = "none"; // Hide the table set
     }
   }
 
@@ -556,7 +620,7 @@
   }
 
   
-  // 두번째 그룹 인풋박스 한번에 비우기
+  // 두번째, 세번째 그룹 인풋박스 한번에 비우기
   function resetMaterials2() {
     var needMaterials = document.querySelectorAll('.material-input2');
 
@@ -566,10 +630,8 @@
     });
   }
 
-
   // '가지고 있는 수량' 이름 업데이트
   function updateTierLabels() {
-    showName(); // 가공품 이름 띄우기
     var selectElement = document.getElementById("selectMaterial");
     var selectedValue = selectElement.value;
     
@@ -608,30 +670,71 @@
 
     }
 
-    // '필요한 재료' 이름 업데이트
-    function calculateTierLabels() {
+  // '필요한 재료' 이름 업데이트
+  function calculateTierLabels() {
+    var selectElement = document.getElementById("selectMaterial");
+    var selectedValue = selectElement.value;
+    
+    var tiers = ["ttier1", "ttier2", "ttier3", "ttier4", "ttier5", "ttier6", "ttier7", "ttier8"];
+    var labels = [];
+    switch(selectedValue) {
+
+      case "Wood":
+        labels = ["거친 통나무", "자작나무 원목", "밤나무 원목", "소나무 원목", "삼나무 원목", "블러드오크 원목", "애셴바크 원목", "화이트우드 원목"];
+        break;
+      case "Stone":
+        labels = ["잡석", "석회암", "사암", "트래버틴", "화강암", "점판암", "현무암", "대리석"];
+        break;
+      case "Ore":
+        labels = ["-", "구리 광석", "아연 광석", "철광석", "티타늄 광석", "루나이트 광석", "운석 광석", "아다만티움 광석"];
+        break;
+      case "Leather":
+        labels = ["가죽 조각", "질긴 가죽", "얇은 가죽", "적당한 가죽", "헤비 가죽", "튼튼한 가죽", "두꺼운 가죽", "탄력있는 가죽"];
+        break;
+      case "Textile":
+        labels = ["-", "목화", "아마", "삼", "스카이플라워", "앰버리프 목화", "태양 아마", "유령 삼"];
+        break;
+      default:
+        labels = [];
+        break;
+    }
+      // 각 tier span 업데이트
+      for (var i = 0; i < tiers.length; i++) {
+          var tierSpan = document.getElementById(tiers[i]);
+          if (i < labels.length) {
+            tierSpan.textContent = labels[i];
+          } else {
+            tierSpan.textContent = "";
+          }
+        }
+
+    }
+
+  // '가지고 있는 수량에서 사용' 이름 업데이트
+  function calculateTierLabels2() {
       var selectElement = document.getElementById("selectMaterial");
       var selectedValue = selectElement.value;
       
-      var tiers = ["ttier1", "ttier2", "ttier3", "ttier4", "ttier5", "ttier6", "ttier7", "ttier8"];
+      var tiers = ["tttier1", "tttier2", "tttier3", "tttier4", "tttier5", "tttier6", "tttier7", "tttier8"];
       var labels = [];
       switch(selectedValue) {
   
         case "Wood":
-          labels = ["거친 통나무", "자작나무 원목", "밤나무 원목", "소나무 원목", "삼나무 원목", "블러드오크 원목", "애셴바크 원목", "화이트우드 원목"];
+          labels = ["-", "자작나무 판자", "밤나무 판자", "소나무 판자", "삼나무 판자", "블러드오크 판자", "애셴바크 판자", "화이트우드 판자"];
           break;
         case "Stone":
-          labels = ["잡석", "석회암", "사암", "트래버틴", "화강암", "점판암", "현무암", "대리석"];
+          labels = ["-", "석회암 석괴", "사암 석괴", "트래버틴 석괴", "화강암 석괴", "점판암 석괴", "현무암 석괴", "대리석 석괴"];
           break;
         case "Ore":
-          labels = ["-", "구리 광석", "아연 광석", "철광석", "티타늄 광석", "루나이트 광석", "운석 광석", "아다만티움 광석"];
+          labels = ["-", "구리 주괴", "청동 주괴", "강철 주괴", "티타늄 강철주괴", "루나이트 강철주괴", "운석 강철주괴", "아다만티움 강철주괴"];
           break;
         case "Leather":
-          labels = ["가죽 조각", "질긴 가죽", "얇은 가죽", "적당한 가죽", "헤비 가죽", "튼튼한 가죽", "두꺼운 가죽", "탄력있는 가죽"];
+          labels = ["-", "	뻣뻣한 피혁", "	두꺼운 피혁", "가공된 피혁", "보존 처리된 피혁", "경화 처리된 피혁", "보강 처리된 피혁", "최고 처리한 피혁"];
           break;
         case "Textile":
-          labels = ["-", "목화", "아마", "삼", "스카이플라워", "앰버리프 목화", "태양 아마", "유령 삼"];
+          labels = ["-", "단순한 직물", "깔끔한 직물", "괜찮은 직물", "화려한 직물", "호화로운 직물", "호사스러운 직물", "바로크 직물"];
           break;
+
         default:
           labels = [];
           break;
@@ -648,30 +751,33 @@
   
       }
 
-      // 가공품 이름 띄우기
-      function showName() {
-        var materialValue = document.getElementById("selectMaterial").value; // 재료
-        var tierValue = parseInt(document.getElementById("selectTier").value); // 티어
-        var processedProducts = {
-          "Wood":["-", "자작나무 판자", "밤나무 판자", "소나무 판자", "삼나무 판자", "블러드오크 판자", "애셴바크 판자", "화이트우드 판자"],
-          "Stone":["-", "석회암 석괴", "사암 석괴", "트래버틴 석괴", "화강암 석괴", "점판암 석괴", "현무암 석괴", "대리석 석괴"],
-          "Ore":["-", "구리 주괴", "청동 주괴", "강철 주괴", "티타늄 강철주괴", "루나이트 강철주괴", "운석 강철주괴", "아다만티움 강철주괴"],
-          "Leather":["-", "	뻣뻣한 피혁", "	두꺼운 피혁", "가공된 피혁", "보존 처리된 피혁", "경화 처리된 피혁", "보강 처리된 피혁", "최고 처리한 피혁"],
-          "Textile":["-", "단순한 직물", "깔끔한 직물", "괜찮은 직물", "화려한 직물", "호화로운 직물", "호사스러운 직물", "바로크 직물"]
-        }
-        var processedProduct = processedProducts[materialValue][tierValue - 1];
-        document.getElementById("nameProduct").textContent = processedProduct;
-      }
+
+  // 가공품 이름 띄우기
+  function showName() {
+    var materialValue = document.getElementById("selectMaterial").value; // 재료
+    var tierValue = parseInt(document.getElementById("selectTier").value); // 티어
+    var processedProducts = {
+      "Wood":["-", "자작나무 판자", "밤나무 판자", "소나무 판자", "삼나무 판자", "블러드오크 판자", "애셴바크 판자", "화이트우드 판자"],
+      "Stone":["-", "석회암 석괴", "사암 석괴", "트래버틴 석괴", "화강암 석괴", "점판암 석괴", "현무암 석괴", "대리석 석괴"],
+      "Ore":["-", "구리 주괴", "청동 주괴", "강철 주괴", "티타늄 강철주괴", "루나이트 강철주괴", "운석 강철주괴", "아다만티움 강철주괴"],
+      "Leather":["-", "	뻣뻣한 피혁", "	두꺼운 피혁", "가공된 피혁", "보존 처리된 피혁", "경화 처리된 피혁", "보강 처리된 피혁", "최고 처리한 피혁"],
+      "Textile":["-", "단순한 직물", "깔끔한 직물", "괜찮은 직물", "화려한 직물", "호화로운 직물", "호사스러운 직물", "바로크 직물"]
+    }
+    var processedProduct = processedProducts[materialValue][tierValue - 1];
+    document.getElementById("nameProduct").textContent = processedProduct;
+  }
 
 
-    // 페이지 로드 시 초기화
-    updateTierLabels(); // '가지고 있는 수량' 이름 업데이트
-    calculateTierLabels(); // '필요한 재료' 이름 업데이트
+  // 페이지 로드 시 초기화
+  updateTierLabels(); // '가지고 있는 수량' 이름 업데이트
+  calculateTierLabels(); // '필요한 재료' 이름 업데이트
+  calculateTierLabels2(); // '가지고 있는 수량' 이름 업데이트
 
-    // 계산 버튼
-    function calculate() {
+  // 계산 버튼
+  function calculate() {
       resetMaterials2(); // 인풋박스 한번에 비우기
       document.getElementById('needMaterial1').disabled = true; // 1티어는 비활성화
+      document.getElementById('useMaterial1').disabled = true; // 1티어는 비활성화
 
       var materialValue = document.getElementById("selectMaterial").value; // 재료
       var tierValue = parseInt(document.getElementById("selectTier").value); // 티어
@@ -690,6 +796,7 @@
       if (goalValue == "") {
         alert('수량이 입력되지 않았습니다.');
       } else {
+
         switch (tierValue) {
           case 1:
             alert('1티어는 만들 수 없습니다.');
@@ -697,93 +804,443 @@
           case 2:
               needMaterial2.value = goalValue * 1;
 
-              // 나머지 칸 필드 비활성화
+              // '필요한 원재료' 나머지 칸 필드 비활성화
               for (var i = 3; i <= 8; i++) {
                 var needMaterial = document.getElementById("needMaterial" + i);
                 needMaterial.disabled = true;
               }
 
-            break;
-          case 3:
-              needMaterial3.value = goalValue * 2;
-              temp2 = (goalValue - haveMaterialId2) * 1;
-              // 마이너스 값 확인
-              if (temp2 >= 0) {
-                needMaterial2.value = temp2;
-              } else {
-                needMaterial2.value = haveMaterialId2 + '개 중 ' + (haveMaterialId2 - Math.abs(temp2)) + '개만 사용';
+              // '가지고 있는 수량' 나머지 칸 필드 비활성화
+              for (var i = 3; i <= 8; i++) {
+                var useMaterial = document.getElementById("useMaterial" + i);
+                useMaterial.disabled = true;
               }
 
-              // 나머지 칸 필드 비활성화
-              for (var i = 4; i <= 8; i++) {
+            break;
+          case 3:
+              needMaterial3.value = goalValue * 2; // 3티어 원재료 2개 필요
+              let condition1 = goalValue - haveMaterialId2;
+
+              // 가지고있는 2티어 가공품이 부족할 때
+              if (condition1 > 0) {
+                useMaterial2.value = (haveMaterialId2 == 0) ? '' : haveMaterialId2 + '개 모두 사용'; // 0일때와 아닐때 구분
+                needMaterial2.value = condition1; // 목표수량만큼 부족분 더 만들기
+
+              // 가지고 있는 2티어 가공품이 목표수량일때
+              } else if (condition1 == 0) {
+                useMaterial2.value = haveMaterialId2 + '개 모두 사용';
+
+              // 2티어 가공품을 목표수량보다 더 많이 가지고 있을 때  
+              } else {
+                useMaterial2.value = haveMaterialId2 + '개 중 ' + (haveMaterialId2 - Math.abs(condition1)) + '개만 사용'; // 일부만 사용 표시
+              }
+
+              // '필요한 원재료' 나머지 칸 필드 비활성화
+              for (var i = 4; i <= 8; i++) { 
                 var needMaterial = document.getElementById("needMaterial" + i);
                 needMaterial.disabled = true;
               }
 
+              // '가지고 있는 수량' 나머지 칸 필드 비활성화
+              for (var i = 3; i <= 8; i++) {
+                var useMaterial = document.getElementById("useMaterial" + i);
+                useMaterial.disabled = true;
+              }
+
             break;
           case 4:
-            needMaterial4.value = goalValue * 2;
-            needMaterial3.value = (goalValue - haveMaterialId3) * 2;
-            needMaterial2.value = (goalValue - haveMaterialId3 - haveMaterialId2) * 1;            
+            needMaterial4.value = goalValue * 2; // 4티어 원재료 2개 필요
+            // needMaterial3.value = (goalValue - haveMaterialId3) * 2;
+            // needMaterial2.value = (goalValue - haveMaterialId3 - haveMaterialId2) * 1;
+            let condition2 = goalValue - haveMaterialId3;
+            let condition3 = goalValue - haveMaterialId3 - haveMaterialId2;
 
-              // 나머지 칸 필드 비활성화
+            // 가지고있는 3티어 가공품이 부족할 때
+            if (condition2 > 0) {
+              useMaterial3.value = (haveMaterialId3 == 0) ? '' : haveMaterialId3 + '개 모두 사용'; // 0일때와 아닐때 구분
+              needMaterial3.value = (condition2) * 2; // 목표수량만큼 부족분 더 만들기
+
+                // 가지고있는 3티어 가공품, 2티어 가공품이 부족할 때
+                if (condition3 > 0) {
+                  useMaterial2.value = (haveMaterialId2 == 0) ? '' : haveMaterialId2 + '개 모두 사용'; // 0일때와 아닐때 구분
+                  needMaterial2.value = condition3; // 목표수량만큼 부족분 더 만들기
+
+                // 가지고 있는 3티어 가공품은 부족하고, 2티어 가공품은 목표수량일때
+                } else if (condition3 == 0) {
+                  useMaterial2.value = haveMaterialId2 + '개 모두 사용';
+
+                // 가지고 있는 3티어 가공품은 부족하고, 2티어 가공품을 목표수량보다 더 많이 가지고 있을 때  
+                } else {
+                  useMaterial2.value = haveMaterialId2 + '개 중 ' + Math.abs(condition3) + '개만 사용'; // 일부만 사용 표시
+                }
+            
+            // 가지고 있는 3티어 가공품이 목표수량일때    
+            } else if (condition2 == 0) {
+              useMaterial3.value = haveMaterialId3 + '개 모두 사용';
+
+            // 3티어 가공품을 목표수량보다 더 많이 가지고 있을 때  
+            } else {
+              useMaterial3.value = haveMaterialId3 + '개 중 ' + (haveMaterialId3 - Math.abs(condition2)) + '개만 사용'; // 일부만 사용 표시
+            }
+
+              // '필요한 원재료' 나머지 칸 필드 비활성화
               for (var i = 5; i <= 8; i++) {
                 var needMaterial = document.getElementById("needMaterial" + i);
                 needMaterial.disabled = true;
               }
 
+              // '가지고 있는 수량' 나머지 칸 필드 비활성화
+              for (var i = 4; i <= 8; i++) {
+                var useMaterial = document.getElementById("useMaterial" + i);
+                useMaterial.disabled = true;
+              }
+
             break;
           case 5:
-              needMaterial5.value = goalValue * 3;
-              needMaterial4.value = (goalValue - haveMaterialId4) * 2;
-              needMaterial3.value = (goalValue - haveMaterialId4 - haveMaterialId3) * 2;
-              needMaterial2.value = (goalValue - haveMaterialId4 - haveMaterialId3 - haveMaterialId2) * 1;
+              needMaterial5.value = goalValue * 3; // 5티어 원재료 3개 필요
+              // needMaterial4.value = (goalValue - haveMaterialId4) * 2;
+              // needMaterial3.value = (goalValue - haveMaterialId4 - haveMaterialId3) * 2;
+              // needMaterial2.value = (goalValue - haveMaterialId4 - haveMaterialId3 - haveMaterialId2) * 1;
+              let condition4 = goalValue - haveMaterialId4;
+              let condition5 = goalValue - haveMaterialId4 - haveMaterialId3;
+              let condition6 = goalValue - haveMaterialId4 - haveMaterialId3 - haveMaterialId2;
+
+            // 가지고있는 4티어 가공품이 부족할 때  
+            if (condition4 > 0) {
+              useMaterial4.value = (haveMaterialId4 == 0) ? '' : haveMaterialId4 + '개 모두 사용'; // 0일때와 아닐때 구분
+              needMaterial4.value = (condition4) * 2; // 목표수량만큼 부족분 더 만들기
+
+              // 가지고있는 4티어 가공품, 3티어 가공품이 부족할 때
+              if (condition5 > 0) {
+                useMaterial3.value = (haveMaterialId3 == 0) ? '' : haveMaterialId3 + '개 모두 사용'; // 0일때와 아닐때 구분
+                needMaterial3.value = (condition5) * 2; // 목표수량만큼 부족분 더 만들기
+
+                // 가지고있는 4티어 가공품, 3티어 가공품, 2티어 가공품이 부족할 때
+                if (condition6 > 0) {
+                  useMaterial2.value = (haveMaterialId2 == 0) ? '' : haveMaterialId2 + '개 모두 사용'; // 0일때와 아닐때 구분
+                  needMaterial2.value = condition6; // 목표수량만큼 부족분 더 만들기
+
+                // 가지고있는 4티어 가공품, 3티어 가공품은 부족하고, 2티어 가공품이 목표수량일때   
+                } else if (condition6 == 0) {
+                  useMaterial2.value = haveMaterialId2 + '개 모두 사용';
+                
+                // 가지고있는 4티어 가공품, 3티어 가공품은 부족하고, 2티어 가공품을 목표수량보다 더 많이 가지고 있을 때  
+                } else {
+                  useMaterial2.value = haveMaterialId2 + '개 중 ' + (haveMaterialId2 - Math.abs(condition6)) + '개만 사용'; // 일부만 사용 표시
+                }
+
+              // 가지고 있는 4티어 가공품은 부족하고, 3티어 가공품이 목표수량일때    
+              } else if (condition5 == 0) {
+                useMaterial3.value = (haveMaterialId3 == 0) ? '' : haveMaterialId3 + '개 모두 사용'; // 0일때와 아닐때 구분
               
-              // 나머지 칸 필드 비활성화
+              // 가지고 있는 4티어 가공품은 부족하고, 3티어 가공품을 목표수량보다 더 많이 가지고 있을 때
+              } else {
+                useMaterial3.value = haveMaterialId3 + '개 중 ' + (haveMaterialId3 - Math.abs(condition5)) + '개만 사용'; // 일부만 사용 표시
+              }
+
+            // 가지고 있는 4티어 가공품이 목표수량일때  
+            } else if (condition4 == 0) {
+              useMaterial4.value = haveMaterialId4 + '개 모두 사용';
+
+            // 4티어 가공품을 목표수량보다 더 많이 가지고 있을 때  
+            } else {
+              useMaterial4.value = haveMaterialId4 + '개 중 ' + (haveMaterialId4 - Math.abs(condition4)) + '개만 사용'; // 일부만 사용 표시
+            }
+
+              // '필요한 원재료' 나머지 칸 필드 비활성화
               for (var i = 6; i <= 8; i++) {
                 var needMaterial = document.getElementById("needMaterial" + i);
                 needMaterial.disabled = true;
               }
 
+              // '가지고 있는 수량' 나머지 칸 필드 비활성화
+              for (var i = 5; i <= 8; i++) {
+                var useMaterial = document.getElementById("useMaterial" + i);
+                useMaterial.disabled = true;
+              }
+
             break;
           case 6:  
-              needMaterial6.value = goalValue * 4;
-              needMaterial5.value = (goalValue - haveMaterialId5) * 3;
-              needMaterial4.value = (goalValue - haveMaterialId5 - haveMaterialId4) * 2;
-              needMaterial3.value = (goalValue - haveMaterialId5 - haveMaterialId4 - haveMaterialId3) * 2;
-              needMaterial2.value = (goalValue - haveMaterialId5 - haveMaterialId4 - haveMaterialId3 - haveMaterialId2) * 1;
+              needMaterial6.value = goalValue * 4; // 6티어 원재료 4개 필요
+              // needMaterial5.value = (goalValue - haveMaterialId5) * 3;
+              // needMaterial4.value = (goalValue - haveMaterialId5 - haveMaterialId4) * 2;
+              // needMaterial3.value = (goalValue - haveMaterialId5 - haveMaterialId4 - haveMaterialId3) * 2;
+              // needMaterial2.value = (goalValue - haveMaterialId5 - haveMaterialId4 - haveMaterialId3 - haveMaterialId2) * 1;
+              let condition7  = goalValue - haveMaterialId5;
+              let condition8  = goalValue - haveMaterialId5 - haveMaterialId4;
+              let condition9  = goalValue - haveMaterialId5 - haveMaterialId4 - haveMaterialId3;
+              let condition10 = goalValue - haveMaterialId5 - haveMaterialId4 - haveMaterialId3 - haveMaterialId2;
               
-              // 나머지 칸 필드 비활성화
+            // 가지고있는 5티어 가공품이 부족할 때  
+            if (condition7 > 0) {
+              useMaterial5.value = (haveMaterialId5 == 0) ? '' : haveMaterialId5 + '개 모두 사용'; // 0일때와 아닐때 구분
+              needMaterial5.value = (condition7) * 3; // 목표수량만큼 부족분 더 만들기
+
+              // 가지고있는 5티어 가공품, 4티어 가공품이 부족할 때  
+              if (condition8 > 0) {
+                useMaterial4.value = (haveMaterialId4 == 0) ? '' : haveMaterialId4 + '개 모두 사용'; // 0일때와 아닐때 구분
+                needMaterial4.value = (condition8) * 2; // 목표수량만큼 부족분 더 만들기
+
+                // 가지고있는 5티어 가공품, 4티어 가공품, 3티어 가공품이 부족할 때
+                if (condition9 > 0) {
+                  useMaterial3.value = (haveMaterialId3 == 0) ? '' : haveMaterialId3 + '개 모두 사용'; // 0일때와 아닐때 구분
+                  needMaterial3.value = (condition9) * 2; // 목표수량만큼 부족분 더 만들기
+
+                  // 가지고있는 5티어 가공품, 4티어 가공품, 3티어 가공품, 2티어 가공품이 부족할 때
+                  if (condition10 > 0) {
+                    useMaterial2.value = (haveMaterialId2 == 0) ? '' : haveMaterialId2 + '개 모두 사용'; // 0일때와 아닐때 구분
+                    needMaterial2.value = condition10; // 목표수량만큼 부족분 더 만들기
+
+                  // 가지고있는 5티어 가공품, 4티어 가공품, 3티어 가공품은 부족하고, 2티어 가공품이 목표수량일때   
+                  } else if (condition10 == 0) {
+                    useMaterial2.value = haveMaterialId2 + '개 모두 사용';
+                  
+                  // 가지고있는 5티어 가공품, 4티어 가공품, 3티어 가공품은 부족하고, 2티어 가공품을 목표수량보다 더 많이 가지고 있을 때  
+                  } else {
+                    useMaterial2.value = haveMaterialId2 + '개 중 ' + (haveMaterialId2 - Math.abs(condition10)) + '개만 사용'; // 일부만 사용 표시
+                  }
+
+                // 가지고 있는 5티어 가공품, 4티어 가공품은 부족하고, 3티어 가공품이 목표수량일때    
+                } else if (condition9 == 0) {
+                  useMaterial3.value = (haveMaterialId3 == 0) ? '' : haveMaterialId3 + '개 모두 사용'; // 0일때와 아닐때 구분
+                
+                // 가지고 있는 5티어 가공품, 4티어 가공품은 부족하고, 3티어 가공품을 목표수량보다 더 많이 가지고 있을 때
+                } else {
+                  useMaterial3.value = haveMaterialId3 + '개 중 ' + (haveMaterialId3 - Math.abs(condition9)) + '개만 사용'; // 일부만 사용 표시
+                }
+
+              // 가지고 있는 5티어 가공품은 부족하고, 4티어 가공품이 목표수량일때  
+              } else if (condition8 == 0) {
+                useMaterial4.value = haveMaterialId4 + '개 모두 사용';
+
+              // 가지고 있는 5티어 가공품은 부족하고, 4티어 가공품을 목표수량보다 더 많이 가지고 있을 때  
+              } else {
+                useMaterial4.value = haveMaterialId4 + '개 중 ' + (haveMaterialId4 - Math.abs(condition8)) + '개만 사용'; // 일부만 사용 표시
+              }
+
+            // 가지고 있는 5티어 가공품이 목표수량일때   
+            } else if (condition7 == 0) {
+              useMaterial5.value = haveMaterialId5 + '개 모두 사용';
+
+            // 5티어 가공품을 목표수량보다 더 많이 가지고 있을 때    
+            } else {
+              useMaterial5.value = haveMaterialId5 + '개 중 ' + (haveMaterialId5 - Math.abs(condition7)) + '개만 사용'; // 일부만 사용 표시
+            }
+
+              // '필요한 원재료' 나머지 칸 필드 비활성화
               for (var i = 7; i <= 8; i++) {
                 var needMaterial = document.getElementById("needMaterial" + i);
                 needMaterial.disabled = true;
-              } 
+              }
+
+              // '가지고 있는 수량' 나머지 칸 필드 비활성화
+              for (var i = 6; i <= 8; i++) {
+                var useMaterial = document.getElementById("useMaterial" + i);
+                useMaterial.disabled = true;
+              }
 
             break;
           case 7:
-              needMaterial7.value = goalValue * 5;
-              needMaterial6.value = (goalValue - haveMaterialId6) * 4;
-              needMaterial5.value = (goalValue - haveMaterialId6 - haveMaterialId5) * 3;
-              needMaterial4.value = (goalValue - haveMaterialId6 - haveMaterialId5 - haveMaterialId4) * 2;
-              needMaterial3.value = (goalValue - haveMaterialId6 - haveMaterialId5 - haveMaterialId4 - haveMaterialId3) * 2;
-              needMaterial2.value = (goalValue - haveMaterialId6 - haveMaterialId5 - haveMaterialId4 - haveMaterialId3 - haveMaterialId2) * 1;
-  
-              // 나머지 칸 필드 비활성화
+              needMaterial7.value = goalValue * 5; // 7티어 원재료 5개 필요
+              // needMaterial6.value = (goalValue - haveMaterialId6) * 4;
+              // needMaterial5.value = (goalValue - haveMaterialId6 - haveMaterialId5) * 3;
+              // needMaterial4.value = (goalValue - haveMaterialId6 - haveMaterialId5 - haveMaterialId4) * 2;
+              // needMaterial3.value = (goalValue - haveMaterialId6 - haveMaterialId5 - haveMaterialId4 - haveMaterialId3) * 2;
+              // needMaterial2.value = (goalValue - haveMaterialId6 - haveMaterialId5 - haveMaterialId4 - haveMaterialId3 - haveMaterialId2) * 1;
+              let condition11 = goalValue - haveMaterialId6;
+              let condition12 = goalValue - haveMaterialId6 - haveMaterialId5;
+              let condition13 = goalValue - haveMaterialId6 - haveMaterialId5 - haveMaterialId4;
+              let condition14 = goalValue - haveMaterialId6 - haveMaterialId5 - haveMaterialId4 - haveMaterialId3;
+              let condition15 = goalValue - haveMaterialId6 - haveMaterialId5 - haveMaterialId4 - haveMaterialId3 - haveMaterialId2;
+
+              // 가지고있는 6티어 가공품이 부족할 때  
+              if (condition11 > 0) {
+                useMaterial6.value = (haveMaterialId6 == 0) ? '' : haveMaterialId6 + '개 모두 사용'; // 0일때와 아닐때 구분
+                needMaterial6.value = (condition11) * 4; // 목표수량만큼 부족분 더 만들기
+
+                // 가지고있는 6티어 가공품, 5티어 가공품이 부족할 때  
+                if (condition12 > 0) {
+                  useMaterial5.value = (haveMaterialId5 == 0) ? '' : haveMaterialId5 + '개 모두 사용'; // 0일때와 아닐때 구분
+                  needMaterial5.value = (condition12) * 3; // 목표수량만큼 부족분 더 만들기
+
+                  // 가지고있는 6티어 가공품, 5티어 가공품, 4티어 가공품이 부족할 때  
+                  if (condition13 > 0) {
+                    useMaterial4.value = (haveMaterialId4 == 0) ? '' : haveMaterialId4 + '개 모두 사용'; // 0일때와 아닐때 구분
+                    needMaterial4.value = (condition13) * 2; // 목표수량만큼 부족분 더 만들기
+
+                    // 가지고있는 6티어 가공품, 5티어 가공품, 4티어 가공품, 3티어 가공품이 부족할 때
+                    if (condition14 > 0) {
+                      useMaterial3.value = (haveMaterialId3 == 0) ? '' : haveMaterialId3 + '개 모두 사용'; // 0일때와 아닐때 구분
+                      needMaterial3.value = (condition14) * 2; // 목표수량만큼 부족분 더 만들기
+
+                      // 가지고있는 6티어 가공품, 5티어 가공품, 4티어 가공품, 3티어 가공품, 2티어 가공품이 부족할 때
+                      if (condition15 > 0) {
+                        useMaterial2.value = (haveMaterialId2 == 0) ? '' : haveMaterialId2 + '개 모두 사용'; // 0일때와 아닐때 구분
+                        needMaterial2.value = condition15; // 목표수량만큼 부족분 더 만들기
+
+                      // 가지고있는 6티어 가공품, 5티어 가공품, 4티어 가공품, 3티어 가공품은 부족하고, 2티어 가공품이 목표수량일때   
+                      } else if (condition15 == 0) {
+                        useMaterial2.value = haveMaterialId2 + '개 모두 사용';
+                      
+                      // 가지고있는 6티어 가공품, 5티어 가공품, 4티어 가공품, 3티어 가공품은 부족하고, 2티어 가공품을 목표수량보다 더 많이 가지고 있을 때  
+                      } else {
+                        useMaterial2.value = haveMaterialId2 + '개 중 ' + (haveMaterialId2 - Math.abs(condition15)) + '개만 사용'; // 일부만 사용 표시
+                      }
+
+                    // 가지고 있는 6티어 가공품, 5티어 가공품, 4티어 가공품은 부족하고, 3티어 가공품이 목표수량일때    
+                    } else if (condition14 == 0) {
+                      useMaterial3.value = (haveMaterialId3 == 0) ? '' : haveMaterialId3 + '개 모두 사용'; // 0일때와 아닐때 구분
+                    
+                    // 가지고 있는 6티어 가공품, 5티어 가공품, 4티어 가공품은 부족하고, 3티어 가공품을 목표수량보다 더 많이 가지고 있을 때
+                    } else {
+                      useMaterial3.value = haveMaterialId3 + '개 중 ' + (haveMaterialId3 - Math.abs(condition14)) + '개만 사용'; // 일부만 사용 표시
+                    }
+
+                  // 가지고 있는 6티어 가공품, 5티어 가공품은 부족하고, 4티어 가공품이 목표수량일때  
+                  } else if (condition13 == 0) {
+                    useMaterial4.value = haveMaterialId4 + '개 모두 사용';
+
+                  // 가지고 있는 6티어 가공품, 5티어 가공품은 부족하고, 4티어 가공품을 목표수량보다 더 많이 가지고 있을 때  
+                  } else {
+                    useMaterial4.value = haveMaterialId4 + '개 중 ' + (haveMaterialId4 - Math.abs(condition13)) + '개만 사용'; // 일부만 사용 표시
+                  }
+
+                // 가지고 있는 6티어 가공품은 부족하고, 5티어 가공품이 목표수량일때   
+                } else if (condition12 == 0) {
+                  useMaterial5.value = haveMaterialId5 + '개 모두 사용';
+
+                // 가지고 있는 6티어 가공품은 부족하고, 5티어 가공품을 목표수량보다 더 많이 가지고 있을 때    
+                } else {
+                  useMaterial5.value = haveMaterialId5 + '개 중 ' + (haveMaterialId5 - Math.abs(condition12)) + '개만 사용'; // 일부만 사용 표시
+                }
+
+              // 가지고 있는 6티어 가공품이 목표수량일때     
+              } else if (condition11 == 0) {
+                useMaterial6.value = haveMaterialId6 + '개 모두 사용';
+
+              // 6티어 가공품을 목표수량보다 더 많이 가지고 있을 때                  
+              } else {
+                useMaterial6.value = haveMaterialId6 + '개 중 ' + (haveMaterialId6 - Math.abs(condition11)) + '개만 사용'; // 일부만 사용 표시
+              }
+
+              // '필요한 원재료' 나머지 칸 필드 비활성화
               for (var i = 8; i <= 8; i++) {
                 var needMaterial = document.getElementById("needMaterial" + i);
                 needMaterial.disabled = true;
-              } 
+              }
+
+              // '가지고 있는 수량' 나머지 칸 필드 비활성화
+              for (var i = 7; i <= 8; i++) {
+                var useMaterial = document.getElementById("useMaterial" + i);
+                useMaterial.disabled = true;
+              }
 
             break;
           case 8:
-              needMaterial8.value = goalValue * 5;
-              needMaterial7.value = (goalValue - haveMaterialId3) * 5;
-              needMaterial6.value = (goalValue - haveMaterialId3 - haveMaterialId6) * 4;
-              needMaterial5.value = (goalValue - haveMaterialId3 - haveMaterialId6 - haveMaterialId5) * 3;
-              needMaterial4.value = (goalValue - haveMaterialId3 - haveMaterialId6 - haveMaterialId5 - haveMaterialId4) * 2;
-              needMaterial3.value = (goalValue - haveMaterialId3 - haveMaterialId6 - haveMaterialId5 - haveMaterialId4 - haveMaterialId3) * 2;
-              needMaterial2.value = (goalValue - haveMaterialId3 - haveMaterialId6 - haveMaterialId5 - haveMaterialId4 - haveMaterialId3 - haveMaterialId2) * 1;  
+              needMaterial8.value = goalValue * 5; // 8티어 원재료 5개 필요
+              // needMaterial7.value = (goalValue - haveMaterialId3) * 5;
+              // needMaterial6.value = (goalValue - haveMaterialId3 - haveMaterialId6) * 4;
+              // needMaterial5.value = (goalValue - haveMaterialId3 - haveMaterialId6 - haveMaterialId5) * 3;
+              // needMaterial4.value = (goalValue - haveMaterialId3 - haveMaterialId6 - haveMaterialId5 - haveMaterialId4) * 2;
+              // needMaterial3.value = (goalValue - haveMaterialId3 - haveMaterialId6 - haveMaterialId5 - haveMaterialId4 - haveMaterialId3) * 2;
+              // needMaterial2.value = (goalValue - haveMaterialId3 - haveMaterialId6 - haveMaterialId5 - haveMaterialId4 - haveMaterialId3 - haveMaterialId2) * 1;  
+              let condition16 = goalValue - haveMaterialId7;
+              let condition17 = goalValue - haveMaterialId7 - haveMaterialId6;
+              let condition18 = goalValue - haveMaterialId7 - haveMaterialId6 - haveMaterialId5;
+              let condition19 = goalValue - haveMaterialId7 - haveMaterialId6 - haveMaterialId5 - haveMaterialId4;
+              let condition20 = goalValue - haveMaterialId7 - haveMaterialId6 - haveMaterialId5 - haveMaterialId4 - haveMaterialId3;
+              let condition21 = goalValue - haveMaterialId7 - haveMaterialId6 - haveMaterialId5 - haveMaterialId4 - haveMaterialId3 - haveMaterialId2;
 
+              // 가지고있는 7티어 가공품이 부족할 때  
+              if (condition16 > 0) {
+                useMaterial7.value = (haveMaterialId7 == 0) ? '' : haveMaterialId7 + '개 모두 사용'; // 0일때와 아닐때 구분
+                needMaterial7.value = (condition16) * 5; // 목표수량만큼 부족분 더 만들기
+
+                // 가지고있는 7티어 가공품, 6티어 가공품이 부족할 때  
+                if (condition17 > 0) {
+                  useMaterial6.value = (haveMaterialId6 == 0) ? '' : haveMaterialId6 + '개 모두 사용'; // 0일때와 아닐때 구분
+                  needMaterial6.value = (condition17) * 4; // 목표수량만큼 부족분 더 만들기
+
+                  // 가지고있는 7티어 가공품, 6티어 가공품, 5티어 가공품이 부족할 때  
+                  if (condition18 > 0) {
+                    useMaterial5.value = (haveMaterialId5 == 0) ? '' : haveMaterialId5 + '개 모두 사용'; // 0일때와 아닐때 구분
+                    needMaterial5.value = (condition18) * 3; // 목표수량만큼 부족분 더 만들기
+
+                    // 가지고있는 7티어 가공품, 6티어 가공품, 5티어 가공품, 4티어 가공품이 부족할 때  
+                    if (condition19 > 0) {
+                      useMaterial4.value = (haveMaterialId4 == 0) ? '' : haveMaterialId4 + '개 모두 사용'; // 0일때와 아닐때 구분
+                      needMaterial4.value = (condition19) * 2; // 목표수량만큼 부족분 더 만들기
+
+                      // 가지고있는 7티어 가공품, 6티어 가공품, 5티어 가공품, 4티어 가공품, 3티어 가공품이 부족할 때
+                      if (condition20 > 0) {
+                        useMaterial3.value = (haveMaterialId3 == 0) ? '' : haveMaterialId3 + '개 모두 사용'; // 0일때와 아닐때 구분
+                        needMaterial3.value = (condition20) * 2; // 목표수량만큼 부족분 더 만들기
+
+                        // 가지고있는 7티어 가공품, 6티어 가공품, 5티어 가공품, 4티어 가공품, 3티어 가공품, 2티어 가공품이 부족할 때
+                        if (condition21 > 0) {
+                          useMaterial2.value = (haveMaterialId2 == 0) ? '' : haveMaterialId2 + '개 모두 사용'; // 0일때와 아닐때 구분
+                          needMaterial2.value = condition21; // 목표수량만큼 부족분 더 만들기
+
+                        // 가지고있는 7티어 가공품, 6티어 가공품, 5티어 가공품, 4티어 가공품, 3티어 가공품은 부족하고, 2티어 가공품이 목표수량일때   
+                        } else if (condition21 == 0) {
+                          useMaterial2.value = haveMaterialId2 + '개 모두 사용';
+                        
+                        // 가지고있는 7티어 가공품, 6티어 가공품, 5티어 가공품, 4티어 가공품, 3티어 가공품은 부족하고, 2티어 가공품을 목표수량보다 더 많이 가지고 있을 때  
+                        } else {
+                          useMaterial2.value = haveMaterialId2 + '개 중 ' + (haveMaterialId2 - Math.abs(condition21)) + '개만 사용'; // 일부만 사용 표시
+                        }
+
+                      // 가지고 있는 7티어 가공품, 6티어 가공품, 5티어 가공품, 4티어 가공품은 부족하고, 3티어 가공품이 목표수량일때    
+                      } else if (condition20 == 0) {
+                        useMaterial3.value = (haveMaterialId3 == 0) ? '' : haveMaterialId3 + '개 모두 사용'; // 0일때와 아닐때 구분
+                      
+                      // 가지고 있는 7티어 가공품, 6티어 가공품, 5티어 가공품, 4티어 가공품은 부족하고, 3티어 가공품을 목표수량보다 더 많이 가지고 있을 때
+                      } else {
+                        useMaterial3.value = haveMaterialId3 + '개 중 ' + (haveMaterialId3 - Math.abs(condition20)) + '개만 사용'; // 일부만 사용 표시
+                      }
+
+                    // 가지고 있는 7티어 가공품, 6티어 가공품, 5티어 가공품은 부족하고, 4티어 가공품이 목표수량일때  
+                    } else if (condition19 == 0) {
+                      useMaterial4.value = haveMaterialId4 + '개 모두 사용';
+
+                    // 가지고 있는 7티어 가공품, 6티어 가공품, 5티어 가공품은 부족하고, 4티어 가공품을 목표수량보다 더 많이 가지고 있을 때  
+                    } else {
+                      useMaterial4.value = haveMaterialId4 + '개 중 ' + (haveMaterialId4 - Math.abs(condition19)) + '개만 사용'; // 일부만 사용 표시
+                    }
+
+                  // 가지고 있는 7티어 가공품, 6티어 가공품은 부족하고, 5티어 가공품이 목표수량일때   
+                  } else if (condition18 == 0) {
+                    useMaterial5.value = haveMaterialId5 + '개 모두 사용';
+
+                  // 가지고 있는 7티어 가공품, 6티어 가공품은 부족하고, 5티어 가공품을 목표수량보다 더 많이 가지고 있을 때    
+                  } else {
+                    useMaterial5.value = haveMaterialId5 + '개 중 ' + (haveMaterialId5 - Math.abs(condition18)) + '개만 사용'; // 일부만 사용 표시
+                  }
+
+                // 가지고 있는 7티어 가공품은 부족하고, 6티어 가공품이 목표수량일때     
+                } else if (condition17 == 0) {
+                  useMaterial6.value = haveMaterialId6 + '개 모두 사용';
+
+                // 가지고 있는 7티어 가공품은 부족하고, 6티어 가공품을 목표수량보다 더 많이 가지고 있을 때                  
+                } else {
+                  useMaterial6.value = haveMaterialId6 + '개 중 ' + (haveMaterialId6 - Math.abs(condition17)) + '개만 사용'; // 일부만 사용 표시
+                }
+
+              // 가지고 있는 7티어 가공품이 목표수량일때
+              } else if (condition16 == 0) {
+                useMaterial7.value = haveMaterialId7 + '개 모두 사용';
+
+              // 7티어 가공품을 목표수량보다 더 많이 가지고 있을 때                  
+              } else {
+                useMaterial7.value = haveMaterialId7 + '개 중 ' + (haveMaterialId7 - Math.abs(condition16)) + '개만 사용'; // 일부만 사용 표시
+              }
+
+              // '가지고 있는 수량' 나머지 칸 필드 비활성화
+              for (var i = 8; i <= 8; i++) {
+                var useMaterial = document.getElementById("useMaterial" + i);
+                useMaterial.disabled = true;
+              }
+              
             break;
           default:
             
